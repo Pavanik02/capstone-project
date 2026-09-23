@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+*.log
+
+# Runtime/generated artifacts
+support_assistant/chroma_db/
+data_pipeline/database/*.db
+analytics/artifacts/*.joblib
+analytics/figures/*.png
