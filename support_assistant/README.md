@@ -162,3 +162,7 @@ The key is never hard-coded. The real path is optional and is not needed for the
 ## Feature branch smoke check
 
 The support assistant baseline is designed to run with `MOCK_LLM=1`.
+
+## Git workflow note
+
+This branch contains two feature commits before merge-back to `main`.
