@@ -158,3 +158,7 @@ GROQ_MODEL=llama-3.1-8b-instant
 ```
 
 The key is never hard-coded. The real path is optional and is not needed for the required graded baseline.
+
+## Feature branch smoke check
+
+The support assistant baseline is designed to run with `MOCK_LLM=1`.
