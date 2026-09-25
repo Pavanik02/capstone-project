@@ -203,6 +203,11 @@ SELECT c.category_name, COUNT(*) AS book_count
 | Historical Fiction |           26 |
 | Travel             |           11 |
 
+## Acceptance summary
+
+- Book count: `69`
+- Category count: `3`
+
 ## SQL JOIN vs pandas merge
 
 ### `pd.read_sql` result

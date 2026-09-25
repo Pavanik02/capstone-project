@@ -113,6 +113,11 @@ def run_queries() -> None:
     equivalent = sql_norm.equals(merge_norm)
 
     sections += [
+        "## Acceptance summary",
+        "",
+        f"- Book count: `{len(books_df)}`",
+        f"- Category count: `{len(categories_df)}`",
+        "",
         "## SQL JOIN vs pandas merge",
         "",
         "### `pd.read_sql` result",
