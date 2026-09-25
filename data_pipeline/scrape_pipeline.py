@@ -93,9 +93,9 @@ def scrape_category(category: Category) -> list[dict]:
                 {
                     "title": title_tag.get("title") or title_tag.get_text(" ", strip=True),
                     "price_raw": price_tag.get_text(" ", strip=True) if price_tag else "",
-                    "rating_raw": " ".join(card.select_one("p.star-rating").get("class", []))
+                    "star_rating": " ".join(card.select_one("p.star-rating").get("class", []))
                     if card.select_one("p.star-rating") else "",
-                    "availability_raw": availability_tag.get_text(" ", strip=True)
+                    "availability": availability_tag.get_text(" ", strip=True)
                     if availability_tag else "",
                     "category": category.name,
                 }
@@ -113,10 +113,10 @@ def clean_records(records: Iterable[dict]) -> pd.DataFrame:
         raise ValueError("Scraping returned no rows.")
 
     df["price_gbp"] = df["price_raw"].map(parse_price)
-    df["rating"] = df["rating_raw"].str.extract(
+    df["rating"] = df["star_rating"].str.extract(
         r"\b(One|Two|Three|Four|Five)\b", expand=False
     ).map(RATING_MAP)
-    df["in_stock"] = df["availability_raw"].map(parse_stock)
+    df["in_stock"] = df["availability"].map(parse_stock)
 
     # Rows without a stable catalog identity are dropped.
     df = df.dropna(subset=["title", "category"]).copy()
