@@ -13,8 +13,8 @@ All modules are in one repository. The project uses **one consolidated `requirem
 Python 3.10+ is recommended.
 
 ```bash
-git clone <YOUR_PUBLIC_REPOSITORY_URL>
-cd zepto-data-ai-platform
+git clone https://github.com/Pavanik02/capstone-project.git
+cd capstone-project
 
 python -m venv .venv
 # macOS/Linux:
