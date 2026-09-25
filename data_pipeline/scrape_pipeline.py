@@ -132,8 +132,17 @@ def clean_records(records: Iterable[dict]) -> pd.DataFrame:
     df["in_stock"] = df["in_stock"].astype(bool)
 
     return df[
-        ["title", "price_gbp", "price_inr", "rating", "in_stock", "category"]
-    ].reset_index(drop=True)
+        [
+        "title",
+        "price_gbp",
+        "price_inr",
+        "star_rating",
+        "rating",
+        "availability",
+        "in_stock",
+        "category",
+    ]
+].reset_index(drop=True)
 
 
 def create_database(df: pd.DataFrame, db_path: Path = DB_PATH) -> None:
@@ -156,7 +165,9 @@ def create_database(df: pd.DataFrame, db_path: Path = DB_PATH) -> None:
                 title TEXT NOT NULL,
                 price_gbp REAL NOT NULL,
                 price_inr REAL NOT NULL,
+                star_rating TEXT NOT NULL,
                 rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+                availability TEXT NOT NULL,
                 in_stock INTEGER NOT NULL CHECK (in_stock IN (0, 1)),
                 category_id INTEGER NOT NULL,
                 FOREIGN KEY (category_id) REFERENCES categories(category_id)
@@ -180,7 +191,9 @@ def create_database(df: pd.DataFrame, db_path: Path = DB_PATH) -> None:
                 row.title,
                 float(row.price_gbp),
                 float(row.price_inr),
+		row.star_rating,
                 int(row.rating),
+		row.availability,
                 int(row.in_stock),
                 category_map[row.category],
             )
@@ -190,8 +203,8 @@ def create_database(df: pd.DataFrame, db_path: Path = DB_PATH) -> None:
         conn.executemany(
             """
             INSERT INTO books
-            (book_id, title, price_gbp, price_inr, rating, in_stock, category_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            (book_id, title, price_gbp, price_inr, star_rating, rating, availability, in_stock, category_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             rows,
         )
